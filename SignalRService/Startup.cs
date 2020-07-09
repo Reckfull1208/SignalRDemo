@@ -3,7 +3,7 @@ using Owin;
 
 namespace SignalRService
 {
-    internal class Startup
+    public class Startup
     {
         public void Configuration(IAppBuilder app)
         {

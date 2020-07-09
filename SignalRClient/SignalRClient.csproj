@@ -101,5 +101,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SignalRCommon\SignalRCommon.csproj">
+      <Project>{9a1e3d77-50b0-4340-bbde-06d7ae6c6200}</Project>
+      <Name>SignalRCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SignalRModel\SignalRModel.csproj">
+      <Project>{0A79F91A-6835-4AE7-A749-D5484976EDFD}</Project>
+      <Name>SignalRModel</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

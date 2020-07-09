@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SignalRClient.Properties
+namespace SignalRCommon.Properties
 {
 
 
