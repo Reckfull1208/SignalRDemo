@@ -17,5 +17,18 @@
             <Button Content="重启" Name="ReStartBtn" Margin="2.5" Click="ReStartBtn_Click" />
             <TextBlock Name="ServiceInforTb" Margin="2.5" />
         </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <DataGrid Name="dgUser" 
+                      VerticalContentAlignment="Top" 
+                      Margin="2.5"  >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header="用户列表" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </Window>

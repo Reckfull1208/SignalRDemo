@@ -55,14 +55,13 @@ namespace SignalRCommon
             hubConnection = new HubConnection(ServiceUrl);
             //hubConnection.Closed += HubConnection_Closed;
             hubProxy = hubConnection.CreateHubProxy("SignalRHub");
-
-            hubProxy.On<string, string>("AddMessage", (name, message) => this.Dispatcher.Invoke(() =>
+             
+            //接收
+            hubProxy.On<string, string>("SendMsg", (name, message) => this.Dispatcher.Invoke(() =>
                 //log
                 ClientInfor.Text = name + "----" + message
              ));
-
-            hubProxy.On("nodify", () => { MessageBox.Show("123"); });
-
+             
             try
             {
                 await hubConnection.Start();
@@ -70,7 +69,7 @@ namespace SignalRCommon
                 LoginBtn.IsEnabled = false;
                 StopBtn.IsEnabled = true;
             }
-            catch (HttpClientException ex)
+            catch (Exception ex)
             {
                 //log
                 ClientInfor.Text = "连接服务失败";
@@ -79,6 +78,7 @@ namespace SignalRCommon
                 return;
             }
         }
+         
 
         /// <summary>
         /// 向服务器注册本地信息，并写入本地
@@ -112,8 +112,7 @@ namespace SignalRCommon
 
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
-            //ConnetService();
-            RegisterInfoToService();
+            ConnetService(); 
         }
 
         private void StopBtn_Click(object sender, RoutedEventArgs e)

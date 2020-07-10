@@ -41,6 +41,7 @@ namespace SignalRService
             Closed += MainWindow_Closed;
             StartService();
             hub = GlobalHost.ConnectionManager.GetHubContext<SignalRHub>();
+             
         }
          
         /// <summary>
