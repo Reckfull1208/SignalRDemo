@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNet.SignalR.Client;
 using Newtonsoft.Json;
+using SignalRClient;
 using SignalRModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -86,12 +89,21 @@ namespace SignalRCommon
         private bool RegisterInfoToService()
         {
             //拉取本地数据
-            var user = xml.ReadDoc("测试");
-            //无数据需要创建数据并发送给服务器
-            if(user.User == null)
+            var user = xml.ReadDocs().FirstOrDefault();
+            //无数据需要创建数据并发送给服务器 并从服务器返回当前使用的clientid
+            if(user == null || user.User == null)
             {
-                xml.WriteDoc(JsonConvert.SerializeObject(new UserInfor() { ClientId = "123", User = "测试" }));
-            }
+                UserNameDialog nd = new UserNameDialog();
+                if(nd.ShowDialog() == true)
+                {
+                    xml.WriteDoc(JsonConvert.SerializeObject(new UserInfor() { ClientId = "", User = nd.UserName }));
+
+                    //发送至服务器
+                    hubProxy.On<UserInfor>("Register", UserInfor => SynchronizationContext.Current.Post(delegate {
+                        var a = UserInfor;
+                    }, null));
+                } 
+            } 
             return true;
         }
 
@@ -113,6 +125,7 @@ namespace SignalRCommon
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
             ConnetService(); 
+            
         }
 
         private void StopBtn_Click(object sender, RoutedEventArgs e)
@@ -129,13 +142,33 @@ namespace SignalRCommon
 
         private void ReLoginBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (hubConnection != null)
+            //if (hubConnection != null)
+            //{
+            //    hubConnection.Stop();
+            //    hubConnection.Dispose();
+            //}
+            //ConnetService();
+            RegisterInfoToService();
+        }
+
+        private void CorrentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //拉取本地数据
+            var user = xml.ReadDocs().FirstOrDefault(); 
+            UserNameDialog nd = new UserNameDialog();
+            if (nd.ShowDialog() == true)
             {
-                hubConnection.Stop();
-                hubConnection.Dispose();
+                UserInfor info = new UserInfor();
+                info.OldUser = user.User;
+                info.ClientId = user.ClientId;
+                info.User = nd.UserName;
+
+                //发送至服务器
+
             }
-            ConnetService();
         }
         #endregion
+
+
     }
 }

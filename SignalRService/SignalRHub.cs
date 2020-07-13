@@ -15,7 +15,7 @@ namespace SignalRService
         {
             try
             {
-                var clientId = Context.ConnectionId;
+                  
             }
             catch
             {
@@ -24,7 +24,8 @@ namespace SignalRService
              
             return base.OnConnected();
         }
-         
+          
+
         /// <summary>
         /// 发送
         /// </summary>
@@ -33,6 +34,11 @@ namespace SignalRService
         public void SendMsg(string user, string msg)
         {
             Clients.All.boradcastMsg(user, msg);
+        }
+
+        public void Register(string user)
+        {
+            Clients.Others.Register(user);
         }
 
     }

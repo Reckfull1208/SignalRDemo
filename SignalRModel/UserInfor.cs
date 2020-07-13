@@ -10,5 +10,7 @@ namespace SignalRModel
     {
         public string ClientId { get; set; }
         public string User { get; set; }
+
+        public string OldUser { get; set; }
     }
 }

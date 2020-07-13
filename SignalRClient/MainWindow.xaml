@@ -11,12 +11,22 @@
             <RowDefinition Height="30" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Content="连接" Name="LoginBtn" Margin="2.5" Click="LoginBtn_Click" />
-            <Button Content="断开" Name="StopBtn" Margin="2.5" Click="StopBtn_Click" />
-            <Button Content="重启" Name="ReLoginBtn" Margin="2.5" Click="ReLoginBtn_Click" />
-            <TextBlock Name="ClientInfor" Margin="2.5" />
-            <TextBlock Name="UserInfoTb" Margin="2.5" />
-        </StackPanel>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Button Content="连接" Name="LoginBtn" Margin="2.5" Click="LoginBtn_Click" />
+                <Button Content="断开" Name="StopBtn" Margin="2.5" Click="StopBtn_Click" />
+                <Button Content="重启" Name="ReLoginBtn" Margin="2.5" Click="ReLoginBtn_Click" />
+                <TextBlock Name="ClientInfor" Margin="2.5" />
+                <TextBlock Name="UserInfoTb" Margin="2.5" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Content="修改用户名" Name="CorrentBtn" Click="CorrentBtn_Click" />
+            </StackPanel>
+        </Grid>
+        
     </Grid>
 </Window>

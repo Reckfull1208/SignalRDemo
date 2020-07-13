@@ -17,7 +17,7 @@ namespace SignalRCommon
     public class EasyXml
     {
 
-        private string filePath = Path.Combine(Directory.GetCurrentDirectory(), "LocalData.xml"); 
+        private string filePath = Path.Combine(Directory.GetCurrentDirectory(), "LocalData.xml");
         /// <summary>
         /// 创建XML
         /// </summary>
@@ -59,7 +59,7 @@ namespace SignalRCommon
             //    Directory.CreateDirectory(SavePath);  //创建文件夹
             //}
 
-            
+
 
             XmlDocument doc = new XmlDocument();
             if (File.Exists(filePath))
@@ -137,8 +137,28 @@ namespace SignalRCommon
                     }
                 }
             }
-            
+
             return info;
+        }
+
+        public List<UserInfor> ReadDocs()
+        {
+            XmlDocument doc = new XmlDocument();
+            List<UserInfor> infors = new List<UserInfor>();
+            if (File.Exists(filePath))
+            {
+                doc.Load(filePath);
+                XmlNodeList nodes = doc.SelectNodes("//Infor");
+
+                foreach (XmlNode node in nodes)
+                {
+                    UserInfor info = new UserInfor();
+                    info.ClientId = node.Attributes["ClientId"].Value;
+                    info.User = node.Attributes["User"].Value;
+                    infors.Add(info);
+                }
+            } 
+            return infors; 
         }
 
     }
